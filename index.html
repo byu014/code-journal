@@ -18,97 +18,111 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-full">
-        <div class="nav-bg nav">
-          <p class="invisible">placeholder</p>
+  <header>
+    <div class="container">
+      <div class="row">
+        <div class="col-full">
+          <div class="nav">
+            <a class="home">Code Journal</a>
+          </div>
         </div>
-        <header class="nav">
-          <p>Code Journal</p>
-        </header>
-      </div>
-      <div class="col-full">
-        <h1>New Entry</h1>
       </div>
     </div>
-    <div data-view="entry-form" class="hidden">
-      <form class="form-elements" action="" >
+  </header>
+  <main>
+    <div class="container">
+      <div data-view="entry-form" class="hidden">
         <div class="row">
-          <div class="col-half">
-            <div class="input">
-              <img class="preview-image" src="images/placeholder-image-square.jpg" alt="placeholder-image-square">
-            </div>
-          </div>
-          <div class="col-half">
-            <div class="input">
-              <label for="title">Title</label>
-              <input required class="user-input" type="text" name="title" id="title">
-            </div>
-            <div class="input">
-              <label for="photoUrl">Photo URL</label>
-              <input required class="user-input" type="text" name="photoUrl" id="photoUrl">
-            </div>
-          </div>
           <div class="col-full">
-            <div class="input">
-              <label for="notes">Notes</label>
-              <textarea required class="user-input" name="notes" id="notes" cols="30" rows="5"></textarea>
-            </div>
-          </div>
-          <div class="col-full">
-            <div class="save">
-              <button type="submit" class="purple-button">SAVE</button>
+            <div class="current">
+              <h1>New Entry</h1>
             </div>
           </div>
         </div>
-      </form>
+        <form class="form-elements" action="" >
+          <div class="row">
+            <div class="col-half">
+              <div class="input">
+                <img class="preview-image" src="images/placeholder-image-square.jpg" alt="placeholder-image-square">
+              </div>
+            </div>
+            <div class="col-half">
+              <div class="input">
+                <label for="title">Title</label>
+                <input required class="user-input" type="text" name="title" id="title">
+              </div>
+              <div class="input">
+                <label for="photoUrl">Photo URL</label>
+                <input required class="user-input" type="text" name="photoUrl" id="photoUrl">
+              </div>
+            </div>
+            <div class="col-full">
+              <div class="input">
+                <label for="notes">Notes</label>
+                <textarea required class="user-input" name="notes" id="notes" cols="30" rows="5"></textarea>
+              </div>
+            </div>
+            <div class="col-full">
+              <div class="save">
+                <button type="submit" class="purple-button">SAVE</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div data-view="entries" class="">
+        <div class="row">
+          <div class="col-full">
+            <div class="current">
+              <h1>Entries</h1>
+            </div>
+          </div>
+        </div>
+        <ul class="entries">
+          <li class="row">
+            <div class="col-half">
+              <div class="input">
+                <img class="preview-image" src="https://www.bbvaopenmind.com/wp-content/uploads/2015/12/Ada_Lovelace_Chalon_portrait-1-1024x1024-1.jpg" alt="placeholder-image-square">
+              </div>
+            </div>
+            <div class="col-half">
+              <div class="input">
+                <h2>Ada Lovelace</h2>
+                <p>
+                  Augusta Ada King, Countness of Lovelace was an English mathematician and writer,
+                  chiefly known for her work on Charles Baggages proposed mechanical general-purpose computer.
+                </p>
+                <p>
+                  She was the first to recognize that the machine had application beyond pure calculation,
+                  and to have published the first algorithm intended to be carried out by such a machine.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li class="row">
+            <div class="col-half">
+              <div class="input">
+                <img class="preview-image" src="https://www.bbvaopenmind.com/wp-content/uploads/2015/12/Ada_Lovelace_Chalon_portrait-1-1024x1024-1.jpg" alt="placeholder-image-square">
+              </div>
+            </div>
+            <div class="col-half">
+              <div class="input">
+                <h2>Ada Lovelace</h2>
+                <p>
+                  Augusta Ada King, Countness of Lovelace was an English mathematician and writer,
+                  chiefly known for her work on Charles Baggages proposed mechanical general-purpose computer.
+                </p>
+                <p>
+                  She was the first to recognize that the machine had application beyond pure calculation,
+                  and to have published the first algorithm intended to be carried out by such a machine.
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div data-view="entries">
-      <ul class="entries">
-        <li class="row">
-          <div class="col-half">
-            <div class="input">
-              <img class="preview-image" src="https://www.bbvaopenmind.com/wp-content/uploads/2015/12/Ada_Lovelace_Chalon_portrait-1-1024x1024-1.jpg" alt="placeholder-image-square">
-            </div>
-          </div>
-          <div class="col-half">
-            <div class="input">
-              <h2>Ada Lovelace</h2>
-              <p>
-                Augusta Ada King, Countness of Lovelace was an English mathematician and writer,
-                chiefly known for her work on Charles Baggages proposed mechanical general-purpose computer.
-              </p>
-              <p>
-                She was the first to recognize that the machine had application beyond pure calculation,
-                and to have published the first algorithm intended to be carried out by such a machine.
-              </p>
-            </div>
-          </div>
-        </li>
-        <li class="row">
-          <div class="col-half">
-            <div class="input">
-              <img class="preview-image" src="https://www.bbvaopenmind.com/wp-content/uploads/2015/12/Ada_Lovelace_Chalon_portrait-1-1024x1024-1.jpg" alt="placeholder-image-square">
-            </div>
-          </div>
-          <div class="col-half">
-            <div class="input">
-              <h2>Ada Lovelace</h2>
-              <p>
-                Augusta Ada King, Countness of Lovelace was an English mathematician and writer,
-                chiefly known for her work on Charles Baggages proposed mechanical general-purpose computer.
-              </p>
-              <p>
-                She was the first to recognize that the machine had application beyond pure calculation,
-                and to have published the first algorithm intended to be carried out by such a machine.
-              </p>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </div>
+  </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>

@@ -1,11 +1,13 @@
 body {
   font-family: 'Mukta', sans-serif;
   background-color: rgba(128, 128, 128, 0.15);
-  font-size: 1rem;
+  font-size: 1.2rem;
+  font-weight: 500;
 }
 
 h1 {
   font-size: 2.5rem;
+  margin: 0;
 }
 
 h2 {
@@ -14,6 +16,30 @@ h2 {
 
 img {
   object-fit: cover;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  padding-bottom: 1rem;
+}
+
+header {
+  background-color: indigo;
+  color: white;
+  font-weight: normal;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.nav {
+  display: flex;
+}
+
+.home {
+  padding: 1rem 0;
 }
 
 .user-input,
@@ -33,14 +59,6 @@ img {
   right: 0;
   z-index: -1;
   background-color: indigo;
-}
-
-.nav {
-  display: flex;
-  align-items: center;
-  color: white;
-  font-weight: normal;
-  font-size: 1.5rem;
 }
 
 .user-input {
@@ -73,4 +91,10 @@ img {
 
 .user-input:focus {
   outline: 1px solid indigo;
+}
+
+@media screen and (min-width: 768px) {
+  li {
+    padding-bottom: 3rem;
+  }
 }
