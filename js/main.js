@@ -3,7 +3,7 @@
 const $photoUrl = document.querySelector('input[name="photoUrl"]');
 const $imagePreview = document.querySelector('.preview-image');
 const $form = document.querySelector('form');
-const newEntry = {};
+let newEntry = {};
 const previousDataJSON = localStorage.getItem('data');
 let allData = { ...data };
 if (previousDataJSON) {
@@ -21,6 +21,7 @@ $form.addEventListener('submit', event => {
   newEntry[$inputs.notes.name] = $inputs.notes.value;
   newEntry.entryId = allData.nextEntryId++;
   allData.entries = [newEntry, ...allData.entries];
+  newEntry = {};
   $imagePreview.src = 'images/placeholder-image-square.jpg';
   event.target.reset();
 });
