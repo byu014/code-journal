@@ -3,6 +3,7 @@
 const $photoUrl = document.querySelector('input[name="photoUrl"]');
 const $imagePreview = document.querySelector('.preview-image');
 const $form = document.querySelector('form');
+const $ul = document.querySelector('.entries');
 let newEntry = {};
 const previousDataJSON = localStorage.getItem('data');
 let allData = { ...data };
@@ -10,7 +11,7 @@ if (previousDataJSON) {
   allData = JSON.parse(previousDataJSON);
 }
 $photoUrl.addEventListener('input', event => {
-  $imagePreview.src = event.target.value;
+  $imagePreview.setAttribute('src', event.target.value);
 });
 
 $form.addEventListener('submit', event => {
@@ -29,6 +30,12 @@ $form.addEventListener('submit', event => {
 window.addEventListener('beforeunload', () => {
   const dataJSON = JSON.stringify(allData);
   localStorage.setItem('data', dataJSON);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  for (let entry of allData.entries) {
+    $ul.appendChild(renderEntry(entry));
+  }
 });
 
 function renderEntry(journalEntry) {
