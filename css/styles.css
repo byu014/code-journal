@@ -63,3 +63,8 @@ img {
   flex-direction: column;
   padding-bottom: 1rem;
 }
+
+input:focus,
+textarea:focus {
+  outline: 1px solid indigo;
+}
