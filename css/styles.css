@@ -2,6 +2,7 @@ body {
   font-family: 'Mukta', sans-serif;
   background-color: rgba(128, 128, 128, 0.15);
   font-weight: bold;
+  font-size: 1rem;
 }
 
 h1 {
@@ -18,7 +19,8 @@ img {
 }
 
 .user-input,
-.purple-button {
+.purple-button,
+.preview-image {
   border: none;
   border-radius: 0.3rem;
 }
@@ -35,11 +37,12 @@ img {
   display: flex;
   align-items: center;
   color: white;
-  font-size: 1rem;
 }
 
 .user-input {
-  font-size: 2rem;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.5rem;
   border: 1px solid grey;
 }
 
@@ -64,7 +67,6 @@ img {
   padding-bottom: 1rem;
 }
 
-input:focus,
-textarea:focus {
+.user-input:focus {
   outline: 1px solid indigo;
 }
