@@ -19,7 +19,7 @@ $form.addEventListener('submit', event => {
   newEntry[$inputs.title.name] = $inputs.title.value;
   newEntry[$inputs.photoUrl.name] = $inputs.photoUrl.value;
   newEntry[$inputs.notes.name] = $inputs.notes.value;
-  newEntry.id = allData.nextEntryId++;
+  newEntry.entryId = allData.nextEntryId++;
   allData.entries = [newEntry, ...allData.entries];
   $imagePreview.src = 'images/placeholder-image-square.jpg';
   event.target.reset();
