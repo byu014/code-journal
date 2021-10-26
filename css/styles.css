@@ -5,6 +5,11 @@ body {
   font-weight: 500;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 h1 {
   font-size: 2.5rem;
   margin: 0;
@@ -36,10 +41,11 @@ header {
 
 .nav {
   display: flex;
+  padding: 1rem 0;
 }
 
-.home {
-  padding: 1rem 0;
+.nav a {
+  flex-basis: 10rem;
 }
 
 .user-input,
