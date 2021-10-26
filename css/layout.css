@@ -2,6 +2,10 @@
   display: none !important;
 }
 
+.invisible {
+  visibility: hidden;
+}
+
 .container {
   max-width: 575px;
   margin: 0 auto;
@@ -13,8 +17,8 @@
   flex-wrap: wrap;
 }
 
-.column-full,
-.column-half {
+.col-full,
+.col-half {
   width: 100%;
 }
 
@@ -23,12 +27,12 @@
     max-width: 900px;
   }
 
-  .column-full,
-  .column-half {
+  .col-full,
+  .col-half {
     padding: 0 0.75rem;
   }
 
-  .column-half {
+  .col-half {
     width: 50%;
   }
 }
