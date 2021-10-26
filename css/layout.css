@@ -1,5 +1,19 @@
+header {
+  overflow: auto;
+}
+
+img {
+  object-fit: cover;
+  height: 50vh;
+  max-width: 100%;
+}
+
 .hidden {
   display: none !important;
+}
+
+.invisible {
+  visibility: hidden;
 }
 
 .container {
@@ -13,8 +27,8 @@
   flex-wrap: wrap;
 }
 
-.column-full,
-.column-half {
+.col-full,
+.col-half {
   width: 100%;
 }
 
@@ -23,12 +37,12 @@
     max-width: 900px;
   }
 
-  .column-full,
-  .column-half {
+  .col-full,
+  .col-half {
     padding: 0 0.75rem;
   }
 
-  .column-half {
+  .col-half {
     width: 50%;
   }
 }
