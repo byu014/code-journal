@@ -30,17 +30,6 @@ $form.addEventListener('submit', event => {
   $imagePreview.src = 'images/placeholder-image-square.jpg';
   $ul.prepend(renderEntry(newEntry));
   newEntry = {};
-  // for (let view of $views) {
-  //   if (view.getAttribute('data-view') === 'entries') {
-  //     view.classList.remove('hidden');
-  //     allData.view = 'entries';
-  //   } else {
-  //     view.classList.add('hidden');
-  //   }
-  // }
-  // if (allData.entries.length) {
-  //   $noEntries.classList.add('hidden');
-  // }
   setView('entries');
 
   event.target.reset();
@@ -55,16 +44,6 @@ window.addEventListener('DOMContentLoaded', () => {
   for (let entry of allData.entries) {
     $ul.appendChild(renderEntry(entry));
   }
-  // for (let view of $views) {
-  //   if (view.getAttribute('data-view') === allData.view) {
-  //     view.classList.remove('hidden');
-  //   } else {
-  //     view.classList.add('hidden');
-  //   }
-  // }
-  // if (allData.entries.length) {
-  //   $noEntries.classList.add('hidden');
-  // }
   setView(allData.view);
 });
 
@@ -74,14 +53,6 @@ $body.addEventListener('click', event => {
   }
 
   const dataView = event.target.getAttribute('data-view');
-  // for (let view of $views) {
-  //   if (view.getAttribute('data-view') === dataView) {
-  //     view.classList.remove('hidden');
-  //     allData.view = view.getAttribute('data-view');
-  //   } else {
-  //     view.classList.add('hidden');
-  //   }
-  // }
   setView(dataView);
 
   event.preventDefault();
