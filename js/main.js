@@ -8,7 +8,6 @@ const $ul = document.querySelector('.entries');
 const $body = document.querySelector('body');
 const $views = document.querySelectorAll('.view');
 const $noEntries = document.querySelector('.no-entries');
-let newEntry = {};
 
 $photoUrl.addEventListener('input', event => {
   if (!event.target.value.length) {
@@ -22,7 +21,7 @@ $form.addEventListener('submit', event => {
   if (data.editing) {
     configureEntry(data.editing, true);
   } else {
-    configureEntry(newEntry, false);
+    configureEntry({}, false);
   }
   setView('entries');
   event.preventDefault();
@@ -161,7 +160,7 @@ function configureEntry(entry, isUpdate) {
   entry[$inputs.notes.name] = $inputs.notes.value;
   if (!isUpdate) {
     entry.entryId = data.nextEntryId++;
-    data.entries = [newEntry, ...data.entries];
+    data.entries = [entry, ...data.entries];
     $ul.prepend(renderEntry(entry));
   } else {
     let $liImg = document.querySelector(`li[data-entry-id="${data.editing.entryId}"] .preview-image`);
