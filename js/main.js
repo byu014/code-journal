@@ -12,19 +12,19 @@ let newEntry = {};
 
 $photoUrl.addEventListener('input', event => {
   $imagePreview.setAttribute('src', event.target.value);
+  if (!event.target.value.length) {
+    $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  }
 });
 
 $form.addEventListener('submit', event => {
-  newEntry[$inputs.title.name] = $inputs.title.value;
-  newEntry[$inputs.photoUrl.name] = $inputs.photoUrl.value;
-  newEntry[$inputs.notes.name] = $inputs.notes.value;
-  newEntry.entryId = data.nextEntryId++;
-  data.entries = [newEntry, ...data.entries];
-  $imagePreview.src = 'images/placeholder-image-square.jpg';
-  $ul.prepend(renderEntry(newEntry));
+  if (data.editing) {
+    configureEntry(data.editing, true);
+  } else {
+    configureEntry(newEntry, false);
+  }
   setView('entries');
   event.preventDefault();
-  event.target.reset();
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -41,7 +41,6 @@ $body.addEventListener('click', event => {
 
   const dataView = event.target.getAttribute('data-view');
   setView(dataView);
-
   event.preventDefault();
 });
 
@@ -62,6 +61,7 @@ $ul.addEventListener('click', event => {
 function renderEntry(journalEntry) {
   const $li = document.createElement('li');
   $li.classList.add('row');
+  $li.setAttribute('data-entry-id', journalEntry.entryId);
 
   const $colHalf1 = document.createElement('div');
   $colHalf1.classList.add('col-half');
@@ -84,6 +84,7 @@ function renderEntry(journalEntry) {
 
   const $h2 = document.createElement('h2');
   $h2.textContent = journalEntry.title;
+  $h2.classList.add('title');
 
   const $editIcon = document.createElement('i');
   $editIcon.classList.add('fas');
@@ -92,6 +93,7 @@ function renderEntry(journalEntry) {
 
   const $p = document.createElement('p');
   $p.textContent = journalEntry.notes;
+  $p.classList.add('notes');
 
   $edit.appendChild($h2);
   $edit.appendChild($editIcon);
@@ -114,8 +116,8 @@ function renderEntry(journalEntry) {
     <div class="col-half">
       <div class="input">
         <div class="edit">
-          <h2>Ada Lovelace</h2>
-          <i class="fas fa-pen"></i>
+          <h2 class="title">Ada Lovelace</h2>
+          <i class="fas fa-pen" data-entry-id=id></i>
         </div>
         <p>
           textContent
@@ -138,6 +140,9 @@ function setView(dataView) {
   if (data.entries.length) {
     $noEntries.classList.add('hidden');
   }
+  if (dataView !== 'entry-form') {
+    resetForm();
+  }
 }
 
 function populateForm(entry) {
@@ -145,4 +150,29 @@ function populateForm(entry) {
   $inputs.photoUrl.setAttribute('value', entry.photoUrl);
   $inputs.notes.value = entry.notes;
   $imagePreview.setAttribute('src', entry.photoUrl);
+}
+
+function configureEntry(entry, isUpdate) {
+  entry[$inputs.title.name] = $inputs.title.value;
+  entry[$inputs.photoUrl.name] = $inputs.photoUrl.value;
+  entry[$inputs.notes.name] = $inputs.notes.value;
+  if (!isUpdate) {
+    entry.entryId = data.nextEntryId++;
+    data.entries = [newEntry, ...data.entries];
+    $ul.prepend(renderEntry(entry));
+  } else {
+    let $liImg = document.querySelector(`li[data-entry-id="${data.editing.entryId}"] .preview-image`);
+    let $liTitle = document.querySelector(`li[data-entry-id="${data.editing.entryId}"] .title`);
+    let $liNotes = document.querySelector(`li[data-entry-id="${data.editing.entryId}"] .notes`);
+
+    $liImg.src = data.editing.photoUrl;
+    $liTitle.textContent = data.editing.title;
+    $liNotes.textContent = data.editing.notes;
+    data.editing = null;
+  }
+}
+
+function resetForm() {
+  $form.reset();
+  $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
 }
