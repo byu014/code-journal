@@ -1,6 +1,8 @@
 /* global data */
 /* exported data */
 const $photoUrl = document.querySelector('input[name="photoUrl"]');
+const $save = document.querySelector('.save');
+const $deleteButton = document.querySelector('.delete-button');
 const $imagePreview = document.querySelector('.preview-image');
 const $form = document.querySelector('form');
 const $inputs = $form.elements;
@@ -40,7 +42,7 @@ $body.addEventListener('click', event => {
   }
 
   const dataView = event.target.getAttribute('data-view');
-  setView(dataView);
+  setView(dataView, event);
   event.preventDefault();
 });
 
@@ -92,6 +94,7 @@ function renderEntry(journalEntry) {
   $editIcon.setAttribute('data-entry-id', journalEntry.entryId);
   $editIcon.setAttribute('data-view', 'entry-form');
   $editIcon.classList.add('view-change');
+  $editIcon.setAttribute('id', 'edit-entry');
 
   const $p = document.createElement('p');
   $p.textContent = journalEntry.notes;
@@ -130,7 +133,7 @@ function renderEntry(journalEntry) {
   */
 }
 
-function setView(dataView) {
+function setView(dataView, event = null) {
   for (let view of $views) {
     if (view.getAttribute('data-view') === dataView) {
       view.classList.remove('hidden');
@@ -142,8 +145,17 @@ function setView(dataView) {
   if (data.entries.length) {
     $noEntries.classList.add('hidden');
   }
+  if (data.editing) {
+    populateForm(data.editing);
+  }
   if (dataView !== 'entry-form') {
     resetForm();
+  } else {
+    let mode = data.editing ? 'edit-entry-mode' : 'new-entry-mode';
+    $save.classList.add(mode);
+    if (mode === 'edit-entry-mode') {
+      $deleteButton.classList.remove('hidden');
+    }
   }
 }
 
@@ -177,5 +189,8 @@ function configureEntry(entry, isUpdate) {
 function resetForm() {
   $form.reset();
   data.editing = null;
+  $save.classList.remove('edit-entry-mode');
+  $save.classList.remove('new-entry-mode');
+  $deleteButton.classList.add('hidden');
   $photoUrl.dispatchEvent(new Event('input'));
 }

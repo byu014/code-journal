@@ -87,9 +87,16 @@ header {
 .save {
   display: flex;
   flex-direction: row;
-  justify-content: end;
   align-items: center;
   padding-bottom: 1rem;
+}
+
+.new-entry-mode {
+  justify-content: end;
+}
+
+.edit-entry-mode {
+  justify-content: space-between;
 }
 
 .input {
@@ -120,6 +127,12 @@ header {
 
 .fa-pen {
   color: indigo;
+}
+
+.delete-button {
+  color: red;
+  text-decoration: underline red;
+  font-weight: 400;
 }
 
 @media screen and (min-width: 768px) {
