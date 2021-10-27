@@ -54,6 +54,13 @@ window.addEventListener('DOMContentLoaded', () => {
   for (let entry of allData.entries) {
     $ul.appendChild(renderEntry(entry));
   }
+  for (let view of $views) {
+    if (view.getAttribute('data-view') === allData.view) {
+      view.classList.remove('hidden');
+    } else {
+      view.classList.add('hidden');
+    }
+  }
 });
 
 $body.addEventListener('click', event => {
@@ -65,6 +72,7 @@ $body.addEventListener('click', event => {
   for (let view of $views) {
     if (view.getAttribute('data-view') === dataView) {
       view.classList.remove('hidden');
+      allData.view = view.getAttribute('data-view');
     } else {
       view.classList.add('hidden');
     }
