@@ -46,6 +46,9 @@ $body.addEventListener('click', event => {
   event.preventDefault();
 });
 
+$ul.addEventListener('click', () => {
+});
+
 function renderEntry(journalEntry) {
   const $li = document.createElement('li');
   $li.classList.add('row');
