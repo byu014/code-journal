@@ -3,6 +3,7 @@
 const $photoUrl = document.querySelector('input[name="photoUrl"]');
 const $imagePreview = document.querySelector('.preview-image');
 const $form = document.querySelector('form');
+const $inputs = $form.elements;
 const $ul = document.querySelector('.entries');
 const $body = document.querySelector('body');
 const $views = document.querySelectorAll('.view');
@@ -14,7 +15,6 @@ $photoUrl.addEventListener('input', event => {
 });
 
 $form.addEventListener('submit', event => {
-  const $inputs = $form.elements;
   newEntry[$inputs.title.name] = $inputs.title.value;
   newEntry[$inputs.photoUrl.name] = $inputs.photoUrl.value;
   newEntry[$inputs.notes.name] = $inputs.notes.value;
@@ -55,6 +55,7 @@ $ul.addEventListener('click', event => {
         break;
       }
     }
+    populateForm(data.editing);
   }
 });
 
@@ -137,4 +138,11 @@ function setView(dataView) {
   if (data.entries.length) {
     $noEntries.classList.add('hidden');
   }
+}
+
+function populateForm(entry) {
+  $inputs.title.setAttribute('value', entry.title);
+  $inputs.photoUrl.setAttribute('value', entry.photoUrl);
+  $inputs.notes.value = entry.notes;
+  $imagePreview.setAttribute('src', entry.photoUrl);
 }
