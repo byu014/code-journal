@@ -89,6 +89,7 @@ header {
   flex-direction: row;
   justify-content: end;
   align-items: center;
+  padding-bottom: 1rem;
 }
 
 .input {
@@ -110,6 +111,15 @@ header {
 .no-entries {
   display: flex;
   justify-content: center;
+}
+
+.edit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fa-pen {
+  color: indigo;
 }
 
 @media screen and (min-width: 768px) {
