@@ -89,6 +89,7 @@ header {
   flex-direction: row;
   justify-content: end;
   align-items: center;
+  padding-bottom: 1rem;
 }
 
 .input {
