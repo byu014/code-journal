@@ -31,8 +31,17 @@ $form.addEventListener('submit', event => {
   newEntry[$inputs.notes.name] = $inputs.notes.value;
   newEntry.entryId = allData.nextEntryId++;
   allData.entries = [newEntry, ...allData.entries];
-  newEntry = {};
   $imagePreview.src = 'images/placeholder-image-square.jpg';
+  $ul.prepend(renderEntry(newEntry));
+  newEntry = {};
+  for (let view of $views) {
+    if (view.getAttribute('data-view') === 'entries') {
+      view.classList.remove('hidden');
+    } else {
+      view.classList.add('hidden');
+    }
+  }
+
   event.target.reset();
 });
 
