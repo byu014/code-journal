@@ -15,10 +15,6 @@ if (previousDataJSON) {
   allData = JSON.parse(previousDataJSON);
 }
 
-if (allData.entries.length) {
-  $noEntries.classList.add('hidden');
-}
-
 $photoUrl.addEventListener('input', event => {
   $imagePreview.setAttribute('src', event.target.value);
 });
@@ -37,6 +33,7 @@ $form.addEventListener('submit', event => {
   for (let view of $views) {
     if (view.getAttribute('data-view') === 'entries') {
       view.classList.remove('hidden');
+      allData.view = 'entries';
     } else {
       view.classList.add('hidden');
     }
@@ -60,6 +57,9 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
       view.classList.add('hidden');
     }
+  }
+  if (allData.entries.length) {
+    $noEntries.classList.add('hidden');
   }
 });
 
