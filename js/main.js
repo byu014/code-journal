@@ -48,13 +48,19 @@ $body.addEventListener('click', event => {
 $ul.addEventListener('click', event => {
   if (event.target.matches('.fa-pen')) {
     setView('entry-form');
+    const currentId = event.target.getAttribute('data-entry-id');
+    for (let entry of data.entries) {
+      if (entry.entryId.toString() === currentId) {
+        data.editing = entry;
+        break;
+      }
+    }
   }
 });
 
 function renderEntry(journalEntry) {
   const $li = document.createElement('li');
   $li.classList.add('row');
-  $li.setAttribute('data-entry-id', journalEntry.entryId);
 
   const $colHalf1 = document.createElement('div');
   $colHalf1.classList.add('col-half');
@@ -81,6 +87,7 @@ function renderEntry(journalEntry) {
   const $editIcon = document.createElement('i');
   $editIcon.classList.add('fas');
   $editIcon.classList.add('fa-pen');
+  $editIcon.setAttribute('data-entry-id', journalEntry.entryId);
 
   const $p = document.createElement('p');
   $p.textContent = journalEntry.notes;
