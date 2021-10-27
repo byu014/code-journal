@@ -49,6 +49,7 @@ $body.addEventListener('click', event => {
 function renderEntry(journalEntry) {
   const $li = document.createElement('li');
   $li.classList.add('row');
+  $li.setAttribute('data-entry-id', journalEntry.entryId);
 
   const $colHalf1 = document.createElement('div');
   $colHalf1.classList.add('col-half');
@@ -91,22 +92,24 @@ function renderEntry(journalEntry) {
 
   return $li;
   /*
-  <div class="col-half">
-    <div class="input">
-      <img class="preview-image" src="image.png" alt="placeholder-image-square">
-    </div>
-  </div>
-  <div class="col-half">
-    <div class="input">
-      <div class="edit">
-        <h2>Ada Lovelace</h2>
-        <i class="fas fa-pen"></i>
+  <li class="row" data-entry-id=id>
+    <div class="col-half">
+      <div class="input">
+        <img class="preview-image" src="image.png" alt="placeholder-image-square">
       </div>
-      <p>
-        textContent
-      </p>
     </div>
-  </div>
+    <div class="col-half">
+      <div class="input">
+        <div class="edit">
+          <h2>Ada Lovelace</h2>
+          <i class="fas fa-pen"></i>
+        </div>
+        <p>
+          textContent
+        </p>
+      </div>
+    </div>
+  </li>
   */
 }
 
