@@ -112,6 +112,15 @@ header {
   justify-content: center;
 }
 
+.edit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fa-pen {
+  color: indigo;
+}
+
 @media screen and (min-width: 768px) {
   li {
     padding-bottom: 3rem;

@@ -66,13 +66,22 @@ function renderEntry(journalEntry) {
   const $input2 = document.createElement('div');
   $input2.classList.add('input');
 
+  const $edit = document.createElement('div');
+  $edit.classList.add('edit');
+
   const $h2 = document.createElement('h2');
   $h2.textContent = journalEntry.title;
+
+  const $editIcon = document.createElement('i');
+  $editIcon.classList.add('fas');
+  $editIcon.classList.add('fa-pen');
 
   const $p = document.createElement('p');
   $p.textContent = journalEntry.notes;
 
-  $input2.appendChild($h2);
+  $edit.appendChild($h2);
+  $edit.appendChild($editIcon);
+  $input2.appendChild($edit);
   $input2.appendChild($p);
   $colHalf2.appendChild($input2);
   $input1.appendChild($image);
@@ -89,7 +98,10 @@ function renderEntry(journalEntry) {
   </div>
   <div class="col-half">
     <div class="input">
-      <h2>Ada Lovelace</h2>
+      <div class="edit">
+        <h2>Ada Lovelace</h2>
+        <i class="fas fa-pen"></i>
+      </div>
       <p>
         textContent
       </p>
