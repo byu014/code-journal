@@ -11,10 +11,11 @@ const $noEntries = document.querySelector('.no-entries');
 let newEntry = {};
 
 $photoUrl.addEventListener('input', event => {
-  $imagePreview.setAttribute('src', event.target.value);
   if (!event.target.value.length) {
     $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+    return;
   }
+  $imagePreview.src = event.target.value;
 });
 
 $form.addEventListener('submit', event => {
@@ -46,7 +47,6 @@ $body.addEventListener('click', event => {
 
 $ul.addEventListener('click', event => {
   if (event.target.matches('.fa-pen')) {
-    setView('entry-form');
     const currentId = event.target.getAttribute('data-entry-id');
     for (let entry of data.entries) {
       if (entry.entryId.toString() === currentId) {
@@ -71,7 +71,8 @@ function renderEntry(journalEntry) {
 
   const $image = document.createElement('img');
   $image.classList.add('preview-image');
-  $image.setAttribute('src', journalEntry.photoUrl);
+  $image.setAttribute('src', 'images/placeholder-image-square.jpg');
+  $image.src = journalEntry.photoUrl;
   $image.setAttribute('alt', 'place-holder-image-square');
 
   const $colHalf2 = document.createElement('div');
@@ -90,6 +91,8 @@ function renderEntry(journalEntry) {
   $editIcon.classList.add('fas');
   $editIcon.classList.add('fa-pen');
   $editIcon.setAttribute('data-entry-id', journalEntry.entryId);
+  $editIcon.setAttribute('data-view', 'entry-form');
+  $editIcon.classList.add('view-change');
 
   const $p = document.createElement('p');
   $p.textContent = journalEntry.notes;
@@ -146,10 +149,10 @@ function setView(dataView) {
 }
 
 function populateForm(entry) {
-  $inputs.title.setAttribute('value', entry.title);
-  $inputs.photoUrl.setAttribute('value', entry.photoUrl);
+  $inputs.title.value = entry.title;
+  $inputs.photoUrl.value = entry.photoUrl;
   $inputs.notes.value = entry.notes;
-  $imagePreview.setAttribute('src', entry.photoUrl);
+  $imagePreview.src = entry.photoUrl;
 }
 
 function configureEntry(entry, isUpdate) {
@@ -174,5 +177,6 @@ function configureEntry(entry, isUpdate) {
 
 function resetForm() {
   $form.reset();
-  $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
+  data.editing = null;
+  $photoUrl.dispatchEvent(new Event('input'));
 }
