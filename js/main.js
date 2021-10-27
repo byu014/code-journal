@@ -15,7 +15,6 @@ $photoUrl.addEventListener('input', event => {
 
 $form.addEventListener('submit', event => {
   const $inputs = $form.elements;
-  event.preventDefault();
   newEntry[$inputs.title.name] = $inputs.title.value;
   newEntry[$inputs.photoUrl.name] = $inputs.photoUrl.value;
   newEntry[$inputs.notes.name] = $inputs.notes.value;
@@ -23,8 +22,8 @@ $form.addEventListener('submit', event => {
   data.entries = [newEntry, ...data.entries];
   $imagePreview.src = 'images/placeholder-image-square.jpg';
   $ul.prepend(renderEntry(newEntry));
-  newEntry = {};
   setView('entries');
+  event.preventDefault();
   event.target.reset();
 });
 
@@ -46,7 +45,10 @@ $body.addEventListener('click', event => {
   event.preventDefault();
 });
 
-$ul.addEventListener('click', () => {
+$ul.addEventListener('click', event => {
+  if (event.target.matches('.fa-pen')) {
+    setView('entry-form');
+  }
 });
 
 function renderEntry(journalEntry) {
