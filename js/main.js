@@ -8,12 +8,6 @@ const $body = document.querySelector('body');
 const $views = document.querySelectorAll('.view');
 const $noEntries = document.querySelector('.no-entries');
 let newEntry = {};
-const previousDataJSON = localStorage.getItem('data');
-let allData = { ...data };
-
-if (previousDataJSON) {
-  allData = JSON.parse(previousDataJSON);
-}
 
 $photoUrl.addEventListener('input', event => {
   $imagePreview.setAttribute('src', event.target.value);
@@ -25,26 +19,20 @@ $form.addEventListener('submit', event => {
   newEntry[$inputs.title.name] = $inputs.title.value;
   newEntry[$inputs.photoUrl.name] = $inputs.photoUrl.value;
   newEntry[$inputs.notes.name] = $inputs.notes.value;
-  newEntry.entryId = allData.nextEntryId++;
-  allData.entries = [newEntry, ...allData.entries];
+  newEntry.entryId = data.nextEntryId++;
+  data.entries = [newEntry, ...data.entries];
   $imagePreview.src = 'images/placeholder-image-square.jpg';
   $ul.prepend(renderEntry(newEntry));
   newEntry = {};
   setView('entries');
-
   event.target.reset();
 });
 
-window.addEventListener('beforeunload', () => {
-  const dataJSON = JSON.stringify(allData);
-  localStorage.setItem('data', dataJSON);
-});
-
 window.addEventListener('DOMContentLoaded', () => {
-  for (let entry of allData.entries) {
+  for (let entry of data.entries) {
     $ul.appendChild(renderEntry(entry));
   }
-  setView(allData.view);
+  setView(data.view);
 });
 
 $body.addEventListener('click', event => {
@@ -114,13 +102,12 @@ function setView(dataView) {
   for (let view of $views) {
     if (view.getAttribute('data-view') === dataView) {
       view.classList.remove('hidden');
-      allData.view = view.getAttribute('data-view');
+      data.view = view.getAttribute('data-view');
     } else {
       view.classList.add('hidden');
     }
   }
-
-  if (allData.entries.length) {
+  if (data.entries.length) {
     $noEntries.classList.add('hidden');
   }
 }
