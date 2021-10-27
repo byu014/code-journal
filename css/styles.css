@@ -5,9 +5,11 @@ body {
   font-weight: 500;
 }
 
+button,
 a {
   text-decoration: none;
   color: inherit;
+  line-height: 1rem;
 }
 
 h1 {
@@ -77,8 +79,7 @@ header {
 .purple-button {
   color: white;
   background-color: indigo;
-  width: 5rem;
-  padding: 0.7rem 0.7rem;
+  padding: 0.5rem 0.7rem;
   font-weight: inherit;
   text-align: center;
 }
@@ -87,6 +88,7 @@ header {
   display: flex;
   flex-direction: row;
   justify-content: end;
+  align-items: center;
 }
 
 .input {
@@ -97,6 +99,17 @@ header {
 
 .user-input:focus {
   outline: 1px solid indigo;
+}
+
+.current {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.no-entries {
+  display: flex;
+  justify-content: center;
 }
 
 @media screen and (min-width: 768px) {

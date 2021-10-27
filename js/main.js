@@ -4,12 +4,21 @@ const $photoUrl = document.querySelector('input[name="photoUrl"]');
 const $imagePreview = document.querySelector('.preview-image');
 const $form = document.querySelector('form');
 const $ul = document.querySelector('.entries');
+const $body = document.querySelector('body');
+const $views = document.querySelectorAll('.view');
+const $noEntries = document.querySelector('.no-entries');
 let newEntry = {};
 const previousDataJSON = localStorage.getItem('data');
 let allData = { ...data };
+
 if (previousDataJSON) {
   allData = JSON.parse(previousDataJSON);
 }
+
+if (allData.entries.length) {
+  $noEntries.classList.add('hidden');
+}
+
 $photoUrl.addEventListener('input', event => {
   $imagePreview.setAttribute('src', event.target.value);
 });
@@ -38,27 +47,24 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+$body.addEventListener('click', event => {
+  if (!event.target.matches('.view-change')) {
+    return;
+  }
+
+  const dataView = event.target.getAttribute('data-view');
+  for (let view of $views) {
+    if (view.getAttribute('data-view') === dataView) {
+      view.classList.remove('hidden');
+    } else {
+      view.classList.add('hidden');
+    }
+  }
+
+  event.preventDefault();
+});
+
 function renderEntry(journalEntry) {
-  /*
-  <div class="col-half">
-    <div class="input">
-      <img class="preview-image" src="https://www.bbvaopenmind.com/wp-content/uploads/2015/12/Ada_Lovelace_Chalon_portrait-1-1024x1024-1.jpg" alt="placeholder-image-square">
-    </div>
-  </div>
-  <div class="col-half">
-    <div class="input">
-      <h2>Ada Lovelace</h2>
-      <p>
-        Augusta Ada King, Countness of Lovelace was an English mathematician and writer,
-        chiefly known for her work on Charles Baggages proposed mechanical general-purpose computer.
-      </p>
-      <p>
-        She was the first to recognize that the machine had application beyond pure calculation,
-        and to have published the first algorithm intended to be carried out by such a machine.
-      </p>
-    </div>
-  </div>
-  */
   const $li = document.createElement('li');
   $li.classList.add('row');
 
@@ -93,4 +99,19 @@ function renderEntry(journalEntry) {
   $li.appendChild($colHalf2);
 
   return $li;
+  /*
+  <div class="col-half">
+    <div class="input">
+      <img class="preview-image" src="image.png" alt="placeholder-image-square">
+    </div>
+  </div>
+  <div class="col-half">
+    <div class="input">
+      <h2>Ada Lovelace</h2>
+      <p>
+        textContent
+      </p>
+    </div>
+  </div>
+  */
 }
