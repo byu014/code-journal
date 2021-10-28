@@ -1,6 +1,8 @@
 /* global data */
 /* exported data */
 const $photoUrl = document.querySelector('input[name="photoUrl"]');
+const $save = document.querySelector('.save');
+const $deleteButton = document.querySelector('.delete-entry-button');
 const $imagePreview = document.querySelector('.preview-image');
 const $form = document.querySelector('form');
 const $inputs = $form.elements;
@@ -8,7 +10,10 @@ const $ul = document.querySelector('.entries');
 const $body = document.querySelector('body');
 const $views = document.querySelectorAll('.view');
 const $noEntries = document.querySelector('.no-entries');
+const $modalBg = document.querySelector('.modal-bg');
+const $deleteEntryButton = document.querySelector('.delete-entry-button');
 
+// displays image preview for valid image paths
 $photoUrl.addEventListener('input', event => {
   if (!event.target.value.length) {
     $imagePreview.setAttribute('src', 'images/placeholder-image-square.jpg');
@@ -17,6 +22,7 @@ $photoUrl.addEventListener('input', event => {
   $imagePreview.src = event.target.value;
 });
 
+// handles entry submissions/edits
 $form.addEventListener('submit', event => {
   if (data.editing) {
     configureEntry(data.editing, true);
@@ -27,6 +33,7 @@ $form.addEventListener('submit', event => {
   event.preventDefault();
 });
 
+// load entries, only runs when DOM is loaded
 window.addEventListener('DOMContentLoaded', () => {
   for (let entry of data.entries) {
     $ul.appendChild(renderEntry(entry));
@@ -34,6 +41,7 @@ window.addEventListener('DOMContentLoaded', () => {
   setView(data.view);
 });
 
+// change views
 $body.addEventListener('click', event => {
   if (!event.target.matches('.view-change')) {
     return;
@@ -44,19 +52,40 @@ $body.addEventListener('click', event => {
   event.preventDefault();
 });
 
+// edit entry
 $ul.addEventListener('click', event => {
   if (event.target.matches('.fa-pen')) {
     const currentId = event.target.getAttribute('data-entry-id');
-    for (let entry of data.entries) {
-      if (entry.entryId.toString() === currentId) {
-        data.editing = entry;
-        break;
-      }
-    }
+    let entryIndex = findEntry(currentId);
+    data.editing = data.entries[entryIndex];
     populateForm(data.editing);
   }
 });
 
+// entry delete modal
+$modalBg.addEventListener('click', event => {
+  const $cancelButton = document.querySelector('.modal .gray-button');
+  const $confirmButton = document.querySelector('.modal .red-button');
+  if (event.target === $cancelButton) {
+    $modalBg.classList.add('hidden');
+  }
+  if (event.target === $confirmButton) {
+    const $li = document.querySelector(`li[data-entry-id="${data.editing.entryId}"]`);
+    let entryIndex = findEntry(data.editing.entryId);
+    data.entries.splice(entryIndex, 1);
+    data.editing = null;
+    $modalBg.classList.add('hidden');
+    $li.remove();
+    setView('entries');
+  }
+});
+
+$deleteEntryButton.addEventListener('click', event => {
+  $modalBg.classList.remove('hidden');
+  event.preventDefault();
+});
+
+// takes entry object and returns entry in DOM tree
 function renderEntry(journalEntry) {
   const $li = document.createElement('li');
   $li.classList.add('row');
@@ -92,6 +121,7 @@ function renderEntry(journalEntry) {
   $editIcon.setAttribute('data-entry-id', journalEntry.entryId);
   $editIcon.setAttribute('data-view', 'entry-form');
   $editIcon.classList.add('view-change');
+  $editIcon.setAttribute('id', 'edit-entry');
 
   const $p = document.createElement('p');
   $p.textContent = journalEntry.notes;
@@ -130,6 +160,7 @@ function renderEntry(journalEntry) {
   */
 }
 
+// sets the specified dataView
 function setView(dataView) {
   for (let view of $views) {
     if (view.getAttribute('data-view') === dataView) {
@@ -141,12 +172,24 @@ function setView(dataView) {
   }
   if (data.entries.length) {
     $noEntries.classList.add('hidden');
+  } else {
+    $noEntries.classList.remove('hidden');
+  }
+  if (data.editing) {
+    populateForm(data.editing);
   }
   if (dataView !== 'entry-form') {
     resetForm();
+  } else {
+    let mode = data.editing ? 'edit-entry-mode' : 'new-entry-mode';
+    $save.classList.add(mode);
+    if (mode === 'edit-entry-mode') {
+      $deleteButton.classList.remove('hidden');
+    }
   }
 }
 
+// populates form elements for edit page
 function populateForm(entry) {
   $inputs.title.value = entry.title;
   $inputs.photoUrl.value = entry.photoUrl;
@@ -154,6 +197,7 @@ function populateForm(entry) {
   $imagePreview.src = entry.photoUrl;
 }
 
+// deals with adding/editting entry
 function configureEntry(entry, isUpdate) {
   entry[$inputs.title.name] = $inputs.title.value;
   entry[$inputs.photoUrl.name] = $inputs.photoUrl.value;
@@ -174,8 +218,22 @@ function configureEntry(entry, isUpdate) {
   }
 }
 
+// resets the form during view changes
 function resetForm() {
   $form.reset();
   data.editing = null;
+  $save.classList.remove('edit-entry-mode');
+  $save.classList.remove('new-entry-mode');
+  $deleteButton.classList.add('hidden');
   $photoUrl.dispatchEvent(new Event('input'));
+}
+
+// takes id of entry and returns index of entry in data.entries array
+function findEntry(id) {
+  for (let i = 0; i < data.entries.length; i++) {
+    if (id === data.entries[i].entryId.toString()) {
+      return i;
+    }
+  }
+  return null;
 }
