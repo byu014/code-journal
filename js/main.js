@@ -10,6 +10,7 @@ const $ul = document.querySelector('.entries');
 const $body = document.querySelector('body');
 const $views = document.querySelectorAll('.view');
 const $noEntries = document.querySelector('.no-entries');
+const $modalBg = document.querySelector('.modal-bg');
 
 $photoUrl.addEventListener('input', event => {
   if (!event.target.value.length) {
@@ -56,6 +57,14 @@ $ul.addEventListener('click', event => {
       }
     }
     populateForm(data.editing);
+  }
+});
+
+$modalBg.addEventListener('click', event => {
+  const $cancelButton = document.querySelector('.modal .gray-button');
+  const $confirmButton = document.querySelector('.modal .red-button');
+  if (event.target === $cancelButton) {
+    $modalBg.classList.add('hidden');
   }
 });
 
