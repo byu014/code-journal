@@ -228,6 +228,7 @@ function resetForm() {
   $photoUrl.dispatchEvent(new Event('input'));
 }
 
+// takes id of entry and returns index of entry in data.entries array
 function findEntry(id) {
   for (let i = 0; i < data.entries.length; i++) {
     if (id === data.entries[i].entryId.toString()) {
