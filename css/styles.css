@@ -50,6 +50,9 @@ header {
   flex-basis: 10rem;
 }
 
+.modal,
+.red-button,
+.gray-button,
 .user-input,
 .purple-button,
 .preview-image {
@@ -129,10 +132,48 @@ header {
   color: indigo;
 }
 
-.delete-button {
+.delete-entry-button {
   color: red;
   text-decoration: underline red;
   font-weight: 400;
+}
+
+.modal-bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.modal {
+  background-color: white;
+  padding: 1rem;
+  font-weight: 500;
+  box-shadow: 0 0.2rem 0.4rem 0.1rem rgba(0, 0, 0, 0.5);
+}
+
+.delete-confirmation-buttons {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+}
+
+.red-button {
+  color: white;
+  background-color: red;
+  padding: 0.5rem 0.7rem;
+  font-weight: inherit;
+}
+
+.gray-button {
+  background-color: gray;
+  padding: 0.5rem 0.7rem;
+  font-weight: inherit;
 }
 
 @media screen and (min-width: 768px) {
