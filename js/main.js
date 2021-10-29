@@ -12,6 +12,7 @@ const $views = document.querySelectorAll('.view');
 const $noEntries = document.querySelector('.no-entries');
 const $modalBg = document.querySelector('.modal-bg');
 const $deleteEntryButton = document.querySelector('.delete-entry-button');
+const $searchBar = document.querySelector('.search-bar');
 
 // displays image preview for valid image paths
 $photoUrl.addEventListener('input', event => {
@@ -20,6 +21,27 @@ $photoUrl.addEventListener('input', event => {
     return;
   }
   $imagePreview.src = event.target.value;
+});
+
+// search bar
+$searchBar.addEventListener('keydown', event => {
+  if (!(event.key === 'Enter')) {
+    return;
+  }
+  const $allEntries = document.querySelectorAll('li.row');
+  clearEntries($allEntries);
+  for (let entry of data.entries) {
+    let isMatch = true;
+    for (let word of event.target.value.trim().toLowerCase().split(' ')) {
+      if (!entry.title.toLowerCase().trim().includes(word)) {
+        isMatch = false;
+        break;
+      }
+    }
+    if (isMatch) {
+      $ul.appendChild(renderEntry(entry));
+    }
+  }
 });
 
 // handles entry submissions/edits
@@ -35,9 +57,7 @@ $form.addEventListener('submit', event => {
 
 // load entries, only runs when DOM is loaded
 window.addEventListener('DOMContentLoaded', () => {
-  for (let entry of data.entries) {
-    $ul.appendChild(renderEntry(entry));
-  }
+  renderEntries();
   setView(data.view);
 });
 
@@ -160,6 +180,12 @@ function renderEntry(journalEntry) {
   */
 }
 
+function renderEntries() {
+  for (let entry of data.entries) {
+    $ul.appendChild(renderEntry(entry));
+  }
+}
+
 // sets the specified dataView
 function setView(dataView) {
   for (let view of $views) {
@@ -177,6 +203,10 @@ function setView(dataView) {
   }
   if (data.editing) {
     populateForm(data.editing);
+  }
+  if (dataView !== 'entry') {
+    const $allEntries = document.querySelectorAll('li.row');
+    resetEntries($allEntries);
   }
   if (dataView !== 'entry-form') {
     resetForm();
@@ -236,4 +266,17 @@ function findEntry(id) {
     }
   }
   return null;
+}
+
+// removes all given entries from DOM tree
+function clearEntries($allEntries) {
+  for (let $entry of $allEntries) {
+    $entry.remove();
+  }
+}
+
+function resetEntries($allEntries) {
+  clearEntries($allEntries);
+  renderEntries();
+  $searchBar.value = '';
 }
