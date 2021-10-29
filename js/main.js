@@ -57,9 +57,7 @@ $form.addEventListener('submit', event => {
 
 // load entries, only runs when DOM is loaded
 window.addEventListener('DOMContentLoaded', () => {
-  for (let entry of data.entries) {
-    $ul.appendChild(renderEntry(entry));
-  }
+  renderEntries();
   setView(data.view);
 });
 
@@ -182,6 +180,12 @@ function renderEntry(journalEntry) {
   */
 }
 
+function renderEntries() {
+  for (let entry of data.entries) {
+    $ul.appendChild(renderEntry(entry));
+  }
+}
+
 // sets the specified dataView
 function setView(dataView) {
   for (let view of $views) {
@@ -199,6 +203,10 @@ function setView(dataView) {
   }
   if (data.editing) {
     populateForm(data.editing);
+  }
+  if (dataView !== 'entry') {
+    const $allEntries = document.querySelectorAll('li.row');
+    resetEntries($allEntries);
   }
   if (dataView !== 'entry-form') {
     resetForm();
@@ -265,4 +273,10 @@ function clearEntries($allEntries) {
   for (let $entry of $allEntries) {
     $entry.remove();
   }
+}
+
+function resetEntries($allEntries) {
+  clearEntries($allEntries);
+  renderEntries();
+  $searchBar.value = '';
 }
